@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.EM2.WebApplication.model.User;
+import com.EM2.WebApplication.service.EmployeeService;
 import com.EM2.WebApplication.service.UserService;
 
 @Controller
-public class LoginController {
+public class MainController {
 	
 	@Autowired
 	private UserService userService;
+	
 	
 	@GetMapping(value= {"/","/login"})
 	public ModelAndView login() {
@@ -56,9 +58,6 @@ public class LoginController {
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(authentication.getName());
-		modelAndView.addObject("userName","Welcome" + user.getName()+ " "+user.getLastName());
-		modelAndView.addObject("adminMessage","Content available only for admins");
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
